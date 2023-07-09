@@ -1,0 +1,30 @@
+#!/bin/bash
+subdomain=$1
+origin='$ORIGIN'
+ttl='$TTL 300'
+h1='"'
+main='milo-claes.sb.uclllabs.be'
+serial=$(cat /etc/bind/db.milo-claes.sb.uclllabs.be | grep -P 'Serial' | grep -P [0-9] | grep -oP '\b(?<!\.)\d+(?!\.)\b');
+newSerial=$(($serial + 1))
+
+echo "zone $h1$subdomain.$main$h1 {
+type master;
+file $h1/etc/bind/zones/db.$subdomain.milo-claes.sb.uclllabs.be$h1;
+};
+" >> /etc/bind/named.conf.mrt-zones
+echo "$ttl
+$origin $subdomain.milo-claes.sb.uclllabs.be.
+@       IN      SOA     $subdomain.milo-claes.sb.uclllabs.be. root.milo-claes.sb.uclllabs.be. (
+                              1         ; Serial
+                            300         ; Refresh
+                            300         ; Retry
+                            300         ; Expire
+                          300 ) ; Negative Cache TTL
+;name servers
+        IN      NS      ns.milo-claes.sb.uclllabs.be.
+ns      IN      A       193.191.177.193
+" > /etc/bind/zones/db.$subdomain.milo-claes.sb.uclllabs.be
+
+echo "$subdomain        IN      NS      ns.milo-claes.sb.uclllabs.be." >> /etc/bind/db.milo-claes.sb.uclllabs.be
+sed -i "s/$serial\t\t;\sSerial/$newSerial\t\t; Serial/" /etc/bind/db.milo-claes.sb.uclllabs.be
+sudo systemctl restart named.service;

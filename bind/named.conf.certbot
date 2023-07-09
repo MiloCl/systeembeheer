@@ -1,0 +1,31 @@
+key "certbot." {
+        algorithm hmac-sha512;
+        secret "2af528973e7c4e41a8fc4e3e439dfafca859670b12dc31cb0f72b0c1cbfcdbd1e69e6df101be05e9348d03c0465f3f4db92535e93e92694d7e0626160dbd319";
+};
+
+zone "_acme-challenge.milo-claes.sb.uclllabs.be" {
+        type master;
+        file "/var/lib/bind/milo-claes.sb.uclllabs.be";
+        allow-query { any; };
+        update-policy {
+                grant certbot. name _acme-challenge.milo-claes.sb.uclllabs.be. txt;
+        };
+};
+
+zone "_acme-challenge.secure.milo-claes.sb.uclllabs.be" {
+        type master;
+        file "/var/lib/bind/secure.milo-claes.sb.uclllabs.be";
+        allow-query { any; };
+        update-policy {
+                grant certbot. name _acme-challenge.secure.milo-claes.sb.uclllabs.be. txt;
+        };
+};
+
+zone "_acme-challenge.supersecure.milo-claes.sb.uclllabs.be" {
+        type master;
+        file "/var/lib/bind/supersecure.milo-claes.sb.uclllabs.be";
+        allow-query { any; };
+        update-policy {
+                grant certbot. name _acme-challenge.supersecure.milo-claes.sb.uclllabs.be. txt;
+        };
+};

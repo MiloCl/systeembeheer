@@ -1,0 +1,6 @@
+#!/bin/bash
+variabele=$(mysql -u milo -p password -D check -N -e 'SELECT count(*)as aantal FROM log');
+if [ $variabele -gt 95 ];
+then
+  $(mysql -u milo -p password -D check -e 'DELETE FROM log order by date asc LIMIT 1');
+fi
