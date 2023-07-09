@@ -32,3 +32,14 @@ test	IN	A	193.191.177.254
 www1	IN	A	193.191.177.193
 www2	IN	A	193.191.177.193
 secure	IN	A	193.191.177.193
+
+@               IN      AAAA    2001:6a8:2880:a077::DD
+www             IN      AAAA    2001:6a8:2880:a077::DD
+mx              IN      AAAA    2001:6a8:2880:a077::DD
+ns              IN      AAAA    2001:6a8:2880:a077::DD
+ns1             IN      AAAA    2001:6a8:2880:a020::fe
+ns2             IN      AAAA    2001:6a8:2880:a021::4
+www1            IN      AAAA    2001:6a8:2880:a077::DD
+www2            IN      AAAA    2001:6a8:2880:a077::DD
+secure          IN      AAAA    2001:6a8:2880:a077::DD
+supersecure     IN      AAAA    2001:6a8:2880:a077::DD

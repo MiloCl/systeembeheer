@@ -59,3 +59,6 @@ incron:!::
 check:!::
 ntp:!::
 bind:!::
+mysql:!::
+wireshark:!::
+ftp:!::

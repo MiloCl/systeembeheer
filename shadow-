@@ -31,3 +31,4 @@ check:$y$j9T$9LNdTuO8VTwtZoU4umB9H0$VazpXxbjT3wXe8vjDTqyvwAmNXzaq3mbvd1MVglxqk.:
 ntp:*:19544:0:99999:7:::
 bind:*:19544:0:99999:7:::
 mysql:!:19547:0:99999:7:::
+ftp:*:19547:0:99999:7:::
