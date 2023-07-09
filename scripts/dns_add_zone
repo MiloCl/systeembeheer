@@ -1,0 +1,28 @@
+#!/bin/bash
+
+sub=$1
+serial=$(cat /etc/bind/db.milo-claes.sb.uclllabs.be | grep -P 'Serial' | grep -P [0-9] | grep -oP '\b(?<!\.)\d+(?!\.)\b');
+serialNew=$(($serial + 1))
+
+echo -e "\nzone \"${zz}.milo-claes.sb.uclllabs.be\" {\ntype master;\nfile \"/etc/bind/db.${zz}.steven-dujardin.sb.uclllabs.be\";\n};" >> /etc/bind/named.conf.mrt-zones
+
+
+echo -e "\$TTL 300\n
+@	IN	SOA	ns.milo-claes.sb.uclllabs.be. root.milo-claes.sb.uclllabs.be. (
+				1	; Serial
+				300	; Refresh
+				300	; Retry
+				300	; Expire
+				300 ) ;  Negative Cache TTL
+
+;name servers
+@	IN	NS	ns.milo-claes.sb.uclllabs.be.
+@	IN	A	193.191.177.193
+
+" > /etc/bind/scriptjes/db.$sub.milo-claes.sb.uclllabs.be
+
+echo "$sub	IN	NS	ns.milo-claes.sb.uclllabs.be." >> /etc/bind/db.milo-claes.sb.uclllabs.be
+
+
+sed -i "s/$serial\t\t;\sSerial/$serialNew\t\t; Serial/" /etc/bind/db.milo-claes.sb.uclllabs.be
+
